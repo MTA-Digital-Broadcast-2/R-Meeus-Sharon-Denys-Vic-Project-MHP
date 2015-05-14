@@ -6,13 +6,13 @@ import javax.tv.xlet.*;
 import org.havi.ui.*;
 import org.dvb.event.*;
 
-public class HelloTVXlet implements Xlet, UserEventListener, Values {
+public class HelloTVXlet implements Xlet, UserEventListener {
 
     private XletContext actueleXletXontext;
     private HScene scene;
     private MijnComponent mc;
-    private int posx;
-    private int posy;
+    private int posx = 50;
+    private int posy = 50;
 
     public HelloTVXlet() {
         
@@ -57,7 +57,6 @@ public class HelloTVXlet implements Xlet, UserEventListener, Values {
         sceneTemplate.setPreference(HSceneTemplate.SCENE_SCREEN_LOCATION, new HScreenPoint(0.0f, 0.0f), HSceneTemplate.REQUIRED);
         
         scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
-        
     }
         
         
@@ -86,8 +85,25 @@ public class HelloTVXlet implements Xlet, UserEventListener, Values {
         
     }
 
-    public void userEventReceived(org.dvb.event.UserEvent e) 
-    {
-        
+    public void userEventReceived(org.dvb.event.UserEvent e) {
+        if(e.getType() == KeyEvent.KEY_PRESSED)
+        {
+            System.out.println("Pushed Button");
+            switch(e.getCode())
+            {
+                case org.havi.ui.event.HRcEvent.VK_LEFT:
+                    System.out.println("Left Key was Pressed");
+                    break;
+                case org.havi.ui.event.HRcEvent.VK_RIGHT:
+                    System.out.println("Right Key was Pressed");
+                    break;
+                case org.havi.ui.event.HRcEvent.VK_UP:
+                    System.out.println("Up Key was Pressed");
+                    break;
+                case org.havi.ui.event.HRcEvent.VK_DOWN:
+                    System.out.println("Down Key was Pressed");
+                    break;
+            }
+        }
     }
 }
