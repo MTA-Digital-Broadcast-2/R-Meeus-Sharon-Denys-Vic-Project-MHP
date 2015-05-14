@@ -5,17 +5,19 @@ import java.awt.event.*;
 
 public class Player extends Sprite implements Values
 {
-    private final int Start_position_X = 390;
-    private final int Start_position_Y = 240;
-    private final String player = "player.png";
+    private final int Start_position_X = 250;
+    private final int Start_position_Y = 370;
+    private final String player = "img.png";
     private int width;
     
     public Player()
     {
-        
+        setImageString(player);
+        setX(Start_position_X);
+        setY(Start_position_Y);
     }
     
-    public void Boundaries()
+    /*public void Boundaries()
     {
         x += step;
         if(x <= 5)
@@ -26,24 +28,28 @@ public class Player extends Sprite implements Values
         {
             x = Game_width - (width + 5);
         }
-    }
+    }*/
     
-    public void keyPressed(KeyEvent e)
+    public int keyPressed(int keypressed)
     {
-        int key = e.getKeyCode();
+        int key = keypressed;
         
-        if(key == KeyEvent.VK_LEFT)
+        if(key == 37)
         {
             step = -2;
+            return step;
         }
         
-        else if(key == KeyEvent.VK_RIGHT)
+        else if(key == 39)
         {
             step = 2;
+            return step;
         }
+        
+        else return 0;
     }
     
-    public void KeyReleased(KeyEvent e)
+    /*public void KeyReleased(KeyEvent e)
     {
         int key = e.getKeyCode();
         
@@ -51,6 +57,6 @@ public class Player extends Sprite implements Values
         {
             step = 0;
         }
-    }
+    }*/
             
 }

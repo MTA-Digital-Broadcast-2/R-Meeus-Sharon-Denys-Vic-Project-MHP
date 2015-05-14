@@ -5,7 +5,7 @@ import java.awt.Image;
 public class Sprite
 {
     private boolean visible;
-    private Image image;
+    private String image;
     protected int x;
     protected int y;
     protected boolean is_dying;
@@ -31,12 +31,12 @@ public class Sprite
         this.visible = visible;
     }
     
-    public void setImage(Image image)
+    public void setImageString(String image)
     {
         this.image = image;
     }
     
-    public Image getImage()
+    public String getImageString()
     {
         return image;
     }

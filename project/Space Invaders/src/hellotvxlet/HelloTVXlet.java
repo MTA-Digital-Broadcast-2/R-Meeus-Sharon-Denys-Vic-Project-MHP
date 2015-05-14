@@ -6,13 +6,14 @@ import javax.tv.xlet.*;
 import org.havi.ui.*;
 import org.dvb.event.*;
 
-public class HelloTVXlet implements Xlet, UserEventListener {
+public class HelloTVXlet extends Player implements Xlet, UserEventListener, Values {
 
     private XletContext actueleXletXontext;
     private HScene scene;
-    private MijnComponent mc;
-    private int posx = 50;
+    private MijnComponent myplayer;
+    private int playerx;
     private int posy = 50;
+    private Player player;
 
     public HelloTVXlet() {
         
@@ -22,6 +23,7 @@ public class HelloTVXlet implements Xlet, UserEventListener {
     {
         private Image bmap;
         private MediaTracker mtrack;
+        
         
         public MijnComponent(String bitmapnaam, int x, int y)
         {
@@ -57,6 +59,11 @@ public class HelloTVXlet implements Xlet, UserEventListener {
         sceneTemplate.setPreference(HSceneTemplate.SCENE_SCREEN_LOCATION, new HScreenPoint(0.0f, 0.0f), HSceneTemplate.REQUIRED);
         
         scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
+        
+        // hier alles toevoegen aan scene (scene.add(...)
+        player = new Player();
+        myplayer = new MijnComponent(player.getImageString(), player.x, player.y);
+        scene.add(myplayer);
     }
         
         
@@ -86,13 +93,16 @@ public class HelloTVXlet implements Xlet, UserEventListener {
     }
 
     public void userEventReceived(org.dvb.event.UserEvent e) {
-        if(e.getType() == KeyEvent.KEY_PRESSED)
+        
+        myplayer.setLocation(player.x, player.y);
+        player.x += player.keyPressed(e.getCode());
+        /*if(e.getType() == KeyEvent.KEY_PRESSED)
         {
             System.out.println("Pushed Button");
             switch(e.getCode())
             {
                 case org.havi.ui.event.HRcEvent.VK_LEFT:
-                    System.out.println("Left Key was Pressed");
+                    player.keyPressed();
                     break;
                 case org.havi.ui.event.HRcEvent.VK_RIGHT:
                     System.out.println("Right Key was Pressed");
@@ -104,6 +114,6 @@ public class HelloTVXlet implements Xlet, UserEventListener {
                     System.out.println("Down Key was Pressed");
                     break;
             }
-        }
+        }*/
     }
 }
