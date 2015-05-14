@@ -9,7 +9,13 @@ import java.util.TimerTask;
 
 public class MijnTimerTask extends TimerTask{
     
+    HelloTVXlet xlet;
+    
+    public MijnTimerTask(HelloTVXlet xlet){
+       this.xlet = xlet;
+    }
+    
     public void run(){
-       
+        xlet.callback();
     }
 }

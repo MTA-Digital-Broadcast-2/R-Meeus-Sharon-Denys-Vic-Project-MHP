@@ -38,7 +38,7 @@ public class HelloTVXlet implements Xlet, UserEventListener {
         scene.add(cm2);
         scene.add(cm); 
         
-        MijnTimerTask mtt = new MijnTimerTask();
+        MijnTimerTask mtt = new MijnTimerTask(this);
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(mtt, 0, 24);
        
@@ -77,15 +77,12 @@ public class HelloTVXlet implements Xlet, UserEventListener {
             }
         }
     }
-
-    public class MijnTimerTask extends TimerTask{
-
-        public void run(){
-            cm.CheckYpos();
-            cm2.CheckYpos();
-            cm2.moveUp(1);
-            cm.moveUp(1);
-        }
+    
+    public void callback(){
+        cm.CheckYpos();
+        cm2.CheckYpos();
+        cm2.moveUp(1);
+        cm.moveUp(1);
     }
 }
 
