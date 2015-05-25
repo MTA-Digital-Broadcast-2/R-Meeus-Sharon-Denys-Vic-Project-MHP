@@ -5,48 +5,50 @@ import java.awt.event.*;
 
 public class Player extends Sprite implements Values
 {
-    private final int Start_position_X = 250;
-    private final int Start_position_Y = 370;
-    private final String player = "img.png";
-    private int width;
+    private final int Start_position_X = 50;
+    private final int Start_position_Y = Screen_height - Player_height;
+    private final String playersrc = "Farmer.png";
     
     public Player()
     {
-        setImageString(player);
+        setImageString(playersrc);
         setX(Start_position_X);
         setY(Start_position_Y);
     }
     
-    /*public void Boundaries()
+    public int Boundaries(int x, int screenwidth)
     {
-        x += step;
-        if(x <= 5)
+        if(x < 1)
         {
-            x = 5;
+            x = 1;
         }
-        if(x >= Game_width - (width + 5))
+        
+        else if( x > screenwidth - Player_width)
         {
-            x = Game_width - (width + 5);
+            x = screenwidth - Player_width - 1;
         }
-    }*/
+        
+        return x;
+    }
     
     public int keyPressed(int keypressed)
     {
         int key = keypressed;
         
-        if(key == 37)
+        switch(key)
         {
-            step = -2;
-            return step;
+            case 37: 
+                step = -5;
+                break;
+            case 39:
+                step = 5;
+                break;
+            default:
+                step = 0;
+
         }
         
-        else if(key == 39)
-        {
-            step = 2;
-            return step;
-        }
-        
-        else return 0;
+        return step;
     }
     
     /*public void KeyReleased(KeyEvent e)

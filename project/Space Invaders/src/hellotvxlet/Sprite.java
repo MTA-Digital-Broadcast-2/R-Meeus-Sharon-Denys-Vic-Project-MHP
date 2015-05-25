@@ -1,7 +1,5 @@
 package hellotvxlet;
 
-import java.awt.Image;
-
 public class Sprite
 {
     private boolean visible;

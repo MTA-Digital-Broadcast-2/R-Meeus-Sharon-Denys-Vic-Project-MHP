@@ -1,29 +1,35 @@
 Signature-Version: 1.0
 Created-By: 1.6.0_16 (Sun Microsystems Inc.)
 BDJ-Signature-Version: 1.0
-SHA1-Digest-Manifest: 4SHkUulI+JLfzWlrmhMI0xvMwsM=
+SHA1-Digest-Manifest: P7XdZQMFlDFg7KyYoqtxS8aXV8E=
 
 Name: hellotvxlet/HelloTVXlet.class
-SHA1-Digest: oIAzBHOB5xzL06TJz0TqQKP0FFo=
+SHA1-Digest: /ZC4R6EIGRFEY0uXpRpz0mAGe8Y=
+
+Name: Farmer.png
+SHA1-Digest: qdPsU7EA6L/dPPZhMgpJYpTHMos=
+
+Name: hellotvxlet/Shot.class
+SHA1-Digest: utBT77LIZLaX6pb/ZxbthDnisrA=
+
+Name: trident.png
+SHA1-Digest: DN+zuejtsvCK5uMzO1tuO4Vp43I=
 
 Name: hellotvxlet/HelloTVXlet$MijnComponent.class
-SHA1-Digest: Dzg7e5k2wRGN5rmXScF3dYK5pTs=
+SHA1-Digest: PdNhBy6yMin2LwmUapVoJi5xzs0=
 
 Name: hellotvxlet/bluray.HelloTVXlet.perm
 SHA1-Digest: 84ZO/rYCyy0JStmaLbg1GDVEFhQ=
 
 Name: hellotvxlet/Values.class
-SHA1-Digest: fPeqCSMSxrkZkLk/2EwOKqI7GE4=
-
-Name: img.png
-SHA1-Digest: UYhps33+fd/pGsrImZZghfIO4Io=
+SHA1-Digest: MdqLt9c3wH50aJHbV91ZU25Eki4=
 
 Name: hellotvxlet/Player.class
-SHA1-Digest: Fhiv3UwjPIiam1lLbeGe8CmpiSg=
+SHA1-Digest: 9vJVohFO3klu7r7nV4VjBx7w678=
 
 Name: hellotvxlet/Sprite.class
-SHA1-Digest: bH2QpPhRQZi+yjga46PT4VCSF/E=
+SHA1-Digest: ELdFCahmDZHl+twYXERDCQA/zmo=
 
 Name: Thumbs.db
-SHA1-Digest: 53Q60LTVY8eVc/Q8KsS2d871Nsw=
+SHA1-Digest: AQpyeNuYGRUob/vxRO6nCjPdWWw=
 

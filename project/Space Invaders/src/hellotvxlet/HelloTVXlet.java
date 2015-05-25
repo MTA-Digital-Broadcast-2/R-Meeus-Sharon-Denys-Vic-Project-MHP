@@ -2,6 +2,7 @@ package hellotvxlet;
 
 import java.awt.*;
 import java.awt.event.*;
+import org.dvb.ui.*;
 import javax.tv.xlet.*;
 import org.havi.ui.*;
 import org.dvb.event.*;
@@ -11,11 +12,14 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
     private XletContext actueleXletXontext;
     private HScene scene;
     private MijnComponent myplayer;
+    private MijnComponent myammo;
     private int playerx;
     private int posy = 50;
     private Player player;
+    private Shot shot;
 
-    public HelloTVXlet() {
+    public HelloTVXlet() 
+    {
         
     }
     
@@ -28,6 +32,7 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
         public MijnComponent(String bitmapnaam, int x, int y)
         {
             bmap = this.getToolkit().getImage(bitmapnaam);
+            System.out.println(this.getToolkit().getImage(bitmapnaam));
             mtrack = new MediaTracker(this);
             mtrack.addImage(bmap, 0);
             try
@@ -43,11 +48,36 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
             
         }
 
+        public void drawPlayer(Graphics g, Image bmap)
+        {
+            if(player.isVisible())
+            {
+                g.drawImage(bmap, 0, 0, Player_width, Player_height, null);
+            }
+        }
+        
+        public void drawPlayerShot(Graphics g, Image bmap)
+        {
+            if(shot.isVisible())
+            {
+                g.drawImage(bmap, Player_width/2 - 10, 0, Player_shoot_width, Player_shoot_height, null);
+            }
+        }
+        
         public void paint(Graphics g)
         {
-            g.drawImage(bmap, 0, 0, null);
+            if(bmap == myplayer.bmap)
+            {
+                drawPlayer(g, myplayer.bmap);
+            }
+            else if(bmap == myammo.bmap)
+            {
+                drawPlayerShot(g, myammo.bmap);
+            }
+            
         }
     }
+    
     public void initXlet(XletContext context) throws XletStateChangeException
     {
         this.actueleXletXontext = context;
@@ -62,7 +92,11 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
         
         // hier alles toevoegen aan scene (scene.add(...)
         player = new Player();
+        shot = new Shot();
+        shot.setVisible(false);
         myplayer = new MijnComponent(player.getImageString(), player.x, player.y);
+        myammo = new MijnComponent(shot.getImageString(), shot.x, shot.y);
+        scene.add(myammo);
         scene.add(myplayer);
     }
         
@@ -71,12 +105,11 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
     {
         EventManager manager = EventManager.getInstance();
         
-        UserEventRepository repository = new UserEventRepository("Voorbeeld");
+        UserEventRepository repository = new UserEventRepository("Farmer");
         
         repository.addKey(org.havi.ui.event.HRcEvent.VK_LEFT);
         repository.addKey(org.havi.ui.event.HRcEvent.VK_RIGHT);
-        repository.addKey(org.havi.ui.event.HRcEvent.VK_UP);
-        repository.addKey(org.havi.ui.event.HRcEvent.VK_DOWN);
+        repository.addKey(org.havi.ui.event.HRcEvent.VK_SPACE);
         
         manager.addUserEventListener(this, repository);
         scene.validate();
@@ -95,25 +128,19 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
     public void userEventReceived(org.dvb.event.UserEvent e) {
         
         myplayer.setLocation(player.x, player.y);
+        myammo.setLocation(shot.x, shot.y);
         player.x += player.keyPressed(e.getCode());
-        /*if(e.getType() == KeyEvent.KEY_PRESSED)
+        player.x = Boundaries(player.x, java.awt.Toolkit.getDefaultToolkit().getScreenSize().width);
+        if(e.getType() == KeyEvent.KEY_PRESSED)
         {
-            System.out.println("Pushed Button");
             switch(e.getCode())
             {
-                case org.havi.ui.event.HRcEvent.VK_LEFT:
-                    player.keyPressed();
-                    break;
-                case org.havi.ui.event.HRcEvent.VK_RIGHT:
-                    System.out.println("Right Key was Pressed");
-                    break;
-                case org.havi.ui.event.HRcEvent.VK_UP:
-                    System.out.println("Up Key was Pressed");
-                    break;
-                case org.havi.ui.event.HRcEvent.VK_DOWN:
-                    System.out.println("Down Key was Pressed");
+                case org.havi.ui.event.HRcEvent.VK_SPACE:
+                    shot.setVisible(true);
+                    shot.x = player.x;
+                    shot.y = player.y - Player_shoot_height;
                     break;
             }
-        }*/
+        }
     }
 }
