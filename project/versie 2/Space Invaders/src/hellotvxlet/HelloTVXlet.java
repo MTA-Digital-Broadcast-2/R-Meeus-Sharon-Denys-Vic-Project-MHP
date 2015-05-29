@@ -2,6 +2,7 @@ package hellotvxlet;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 import java.util.Timer;
 import org.dvb.ui.*;
 import javax.tv.xlet.*;
@@ -13,9 +14,10 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
     private XletContext actueleXletXontext;
     private HScene scene;
     private int posy = 50;
+    private int shitTimer = 0;
+    private int eggTimer = 0;
     private Enemy enemy;
     private Farmer farmer;
-    private Shot shot;
 
     public HelloTVXlet() 
     {
@@ -35,16 +37,12 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
         scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
         
         // hier alles toevoegen aan scene (scene.add(...)
-        enemy = new Enemy(0, 0, 50, 50, "right", "Farmer.png");
-        farmer = new Farmer(0, 100, 100, "Farmer.png");
-        shot = new Shot(20, 40, "trident.png", farmer);
-        scene.add(shot.getComponent());
-        scene.add(farmer.getComponent());
-        scene.add(enemy.getComponent());
+        enemy = new Enemy(0, 0, 50, 50, "right", "Chicken.png", scene);
+        farmer = new Farmer(0, 0, 100, 100, "Farmer.png", scene);
         
         MyTimer mtt = new MyTimer(this);
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(mtt, 0, 24);
+        timer.scheduleAtFixedRate(mtt,0, 24);
     }
         
         
@@ -80,13 +78,29 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
             switch(e.getCode())
             {
                 case org.havi.ui.event.HRcEvent.VK_SPACE:
-                    shot.Shoot(farmer);
+                    farmer.Shoot();
                     break;
             }
         }
     }
     
     public void timerCallback(){
+        shitTimer += 1;
+        eggTimer += 1;
+        
         enemy.Move(4);
+        enemy.MoveShit();
+        enemy.MoveEgg(farmer);
+        farmer.MoveBullet(enemy.getShit());
+        
+        if(shitTimer >= 200) {
+            enemy.ThrowShit();
+            shitTimer = 0;
+        }
+        if(eggTimer >= 116){
+            enemy.ThrowEgg();
+            eggTimer = 0;
+        }
+        
     }
 }

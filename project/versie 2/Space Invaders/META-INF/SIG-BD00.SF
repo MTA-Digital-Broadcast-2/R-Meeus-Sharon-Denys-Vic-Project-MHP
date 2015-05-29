@@ -1,13 +1,16 @@
 Signature-Version: 1.0
 Created-By: 1.6.0_16 (Sun Microsystems Inc.)
 BDJ-Signature-Version: 1.0
-SHA1-Digest-Manifest: zwKtGac9WYvwKou+4YWW5MP3ogI=
+SHA1-Digest-Manifest: H0QNifuMmxxOikFE9qf4PjInkt4=
 
 Name: hellotvxlet/Farmer.class
-SHA1-Digest: ChXTeQGh/kxtH5HgWBnKbZzAYNQ=
+SHA1-Digest: Plq4qUpazPbynCwl0+sOOszYp60=
 
 Name: hellotvxlet/MijnComponent.class
 SHA1-Digest: 79dxMuuFXYi/MZrmWXZzGaIrAJk=
+
+Name: Chicken.png
+SHA1-Digest: 59vCbPE6z2byob7K7jDjICc/8EQ=
 
 Name: hellotvxlet/MyComponent.class
 SHA1-Digest: cJtfDkkHSh6wrrSc1PyboNYBfP4=
@@ -15,23 +18,32 @@ SHA1-Digest: cJtfDkkHSh6wrrSc1PyboNYBfP4=
 Name: hellotvxlet/HelloTVXlet$MijnComponent.class
 SHA1-Digest: Z9XRSpotMtwkm8VHIAJ8+99/FLs=
 
+Name: Egg.png
+SHA1-Digest: p4HcefSdfYJVxoFCvEa0cDieJB8=
+
+Name: Shit.png
+SHA1-Digest: U0OVK9P9LerIZbqvDdoMXPONAvU=
+
 Name: hellotvxlet/Enemy.class
-SHA1-Digest: nZX87zhpjayHzmCJixkYtKaqe5k=
+SHA1-Digest: MKOVmFCMc7fHJtOzxG9ak2cbmK0=
 
 Name: hellotvxlet/Sprite.class
 SHA1-Digest: L9NvpQNkT6WYrlwTbr8ArgW7Pqs=
 
+Name: Cleaner.png
+SHA1-Digest: ZYRVnBO3CjyhZbF9DidCnVie4Ag=
+
 Name: hellotvxlet/HelloTVXlet.class
-SHA1-Digest: B04mC2UGiWOIxBdD5XCgjyhWm5U=
+SHA1-Digest: 8qJPNnhMiLbDztUwuPCcy690FzI=
 
 Name: Farmer.png
 SHA1-Digest: qdPsU7EA6L/dPPZhMgpJYpTHMos=
 
 Name: hellotvxlet/MyTimer.class
-SHA1-Digest: p5I8QVxZ1I+RjxA/79oQ5Ult5u0=
+SHA1-Digest: M7p9JsooDBu9/arUT+Y5S9mPoDw=
 
 Name: hellotvxlet/Shot.class
-SHA1-Digest: vB6DarqffbxY8B47CSLa4KOAGw4=
+SHA1-Digest: /pvQPJ4CWV0HGAuyuUzdSqL165A=
 
 Name: hellotvxlet/Sprite2.class
 SHA1-Digest: mEILpSiMf0jPLzEMiSO5VoN5MKQ=
@@ -50,4 +62,7 @@ SHA1-Digest: UYhps33+fd/pGsrImZZghfIO4Io=
 
 Name: hellotvxlet/Player.class
 SHA1-Digest: 9vJVohFO3klu7r7nV4VjBx7w678=
+
+Name: Thumbs.db
+SHA1-Digest: M8uOW4YYQzGnSsUEjg7aE/IZJzo=
 
