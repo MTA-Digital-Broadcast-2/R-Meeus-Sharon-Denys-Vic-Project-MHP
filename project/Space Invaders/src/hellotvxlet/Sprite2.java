@@ -1,15 +1,18 @@
 package hellotvxlet;
 
-public class Sprite
+public class Sprite2
 {
-    private boolean visible;
-    private String image;
+    protected boolean visible;
+    protected MyComponent component;
+    protected String image;
     protected int x;
     protected int y;
+    protected int width;
+    protected int height;
     protected boolean is_dying;
     protected int step;
     
-    public Sprite()
+    public Sprite2()
     {
         visible = true;
     }
@@ -59,6 +62,30 @@ public class Sprite
         return y;
     }
     
+    public void setHeight(int h)
+    {
+        this.height = h;
+    }
+    
+    public int getHeight()
+    {
+        return this.height;
+    }
+    
+    public void setWidth(int w)
+    {
+        this.width = w;
+    }
+    
+    public int getWidth()
+    {
+        return this.width;
+    }
+    
+    public MyComponent getComponent(){
+        return component;
+    }
+    
     public void isDying(boolean is_dying)
     {
         this.is_dying = is_dying;
@@ -68,5 +95,4 @@ public class Sprite
     {
         return is_dying;
     }
-    
 }

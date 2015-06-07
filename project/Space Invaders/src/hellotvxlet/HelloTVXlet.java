@@ -2,80 +2,31 @@ package hellotvxlet;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
+import java.util.Timer;
 import org.dvb.ui.*;
 import javax.tv.xlet.*;
 import org.havi.ui.*;
 import org.dvb.event.*;
+import org.havi.ui.event.HActionListener;
 
-public class HelloTVXlet extends Player implements Xlet, UserEventListener, Values {
+public class HelloTVXlet implements Xlet, HActionListener, UserEventListener, Values {
 
     private XletContext actueleXletXontext;
     private HScene scene;
-    private MijnComponent myplayer;
-    private MijnComponent myammo;
-    private int playerx;
+    private HTextButton startBtn, retry;
+    private HStaticText infoLabel, Titel, gameOver, scoreLabel;
+    private Timer timer;
     private int posy = 50;
-    private Player player;
-    private Shot shot;
+    private int shitTimer = 0;
+    private int eggTimer = 0;
+    private int score = 0;
+    private Enemy enemy;
+    private Farmer farmer;
 
     public HelloTVXlet() 
     {
         
-    }
-    
-    public class MijnComponent extends HComponent
-    {
-        private Image bmap;
-        private MediaTracker mtrack;
-        
-        
-        public MijnComponent(String bitmapnaam, int x, int y)
-        {
-            bmap = this.getToolkit().getImage(bitmapnaam);
-            System.out.println(this.getToolkit().getImage(bitmapnaam));
-            mtrack = new MediaTracker(this);
-            mtrack.addImage(bmap, 0);
-            try
-            {
-                mtrack.waitForAll();
-            }
-            catch (Exception e)
-            {
-                System.out.println(e.toString());
-            }
-            
-            this.setBounds(x, y, bmap.getWidth(null), bmap.getWidth(null));
-            
-        }
-
-        public void drawPlayer(Graphics g, Image bmap)
-        {
-            if(player.isVisible())
-            {
-                g.drawImage(bmap, 0, 0, Player_width, Player_height, null);
-            }
-        }
-        
-        public void drawPlayerShot(Graphics g, Image bmap)
-        {
-            if(shot.isVisible())
-            {
-                g.drawImage(bmap, Player_width/2 - 10, 0, Player_shoot_width, Player_shoot_height, null);
-            }
-        }
-        
-        public void paint(Graphics g)
-        {
-            if(bmap == myplayer.bmap)
-            {
-                drawPlayer(g, myplayer.bmap);
-            }
-            else if(bmap == myammo.bmap)
-            {
-                drawPlayerShot(g, myammo.bmap);
-            }
-            
-        }
     }
     
     public void initXlet(XletContext context) throws XletStateChangeException
@@ -91,13 +42,8 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
         scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
         
         // hier alles toevoegen aan scene (scene.add(...)
-        player = new Player();
-        shot = new Shot();
-        shot.setVisible(false);
-        myplayer = new MijnComponent(player.getImageString(), player.x, player.y);
-        myammo = new MijnComponent(shot.getImageString(), shot.x, shot.y);
-        scene.add(myammo);
-        scene.add(myplayer);
+        drawStartScreen();
+        
     }
         
         
@@ -124,23 +70,122 @@ public class HelloTVXlet extends Player implements Xlet, UserEventListener, Valu
     {
         
     }
+    
+    public void drawStartScreen(){
+        Titel = new HStaticText("EGG FRENZY");
+        Titel.setLocation((Screen_width - 250)/2, (Screen_height - 30)/2 - 200);
+        Titel.setSize(250,30);
+        Titel.setBackground(new DVBColor(255,229,70,255));
+        Titel.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        scene.add(Titel);
+        
+        infoLabel = new HStaticText("try to catch all the eggs.\n But be carefull if the excrement of\n the chicken touches the ground,\n you LOST the game!");
+        infoLabel.setLocation((Screen_width - 350)/2, (Screen_height - 30)/2 - 160);
+        infoLabel.setSize(350, 160);
+        infoLabel.setBackground(new DVBColor(255,229,70,255));
+        infoLabel.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        scene.add(infoLabel);
+        
+        startBtn = new HTextButton("Start Game");
+        startBtn.setLocation((Screen_width - 200)/2,(Screen_height - 30)/2 + 20);
+        startBtn.setSize(200,30);
+        startBtn.setBackground(new DVBColor(173,15,0,255));
+        startBtn.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        scene.add(startBtn);
+        
+        startBtn.setActionCommand("startKnop");
+        startBtn.addHActionListener(this);
+        
+        startBtn.requestFocus();
+       
+    }
 
+    public void startGame(){
+        score = 0;
+        
+        enemy = new Enemy(0, 0, 50, 50, "right", "Chicken.png", scene);
+        farmer = new Farmer(0, 0, 100, 100, "Farmer.png", scene);
+        
+        MyTimer mtt = new MyTimer(this);
+        timer = new Timer();
+        timer.scheduleAtFixedRate(mtt,0, 24);
+    }
+    
+    public void endGame(){
+        scene.removeAll();
+        timer.cancel();
+        
+        gameOver = new HStaticText("Game Over");
+        gameOver.setLocation((Screen_width - 250)/2, (Screen_height - 30)/2 - 200);
+        gameOver.setSize(250,30);
+        gameOver.setBackground(new DVBColor(255,229,70,255));
+        gameOver.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        scene.add(gameOver);
+        
+        scoreLabel = new HStaticText("Score = " + Integer.toString(score));
+        scoreLabel.setLocation((Screen_width - 350)/2, (Screen_height - 30)/2 - 160);
+        scoreLabel.setSize(350, 160);
+        scoreLabel.setBackground(new DVBColor(255,229,70,255));
+        scoreLabel.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        scene.add(scoreLabel);
+        
+        retry = new HTextButton("Replay");
+        retry.setLocation((Screen_width - 200)/2,(Screen_height - 30)/2 + 20);
+        retry.setSize(200,30);
+        retry.setBackground(new DVBColor(173,15,0,255));
+        retry.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        scene.add(retry);
+        
+        retry.setActionCommand("retry");
+        retry.addHActionListener(this);
+        
+        retry.requestFocus();
+        
+        scene.repaint();
+    }
+    
     public void userEventReceived(org.dvb.event.UserEvent e) {
         
-        myplayer.setLocation(player.x, player.y);
-        myammo.setLocation(shot.x, shot.y);
-        player.x += player.keyPressed(e.getCode());
-        player.x = Boundaries(player.x, java.awt.Toolkit.getDefaultToolkit().getScreenSize().width);
+        farmer.Move(e.getCode());
         if(e.getType() == KeyEvent.KEY_PRESSED)
         {
             switch(e.getCode())
             {
                 case org.havi.ui.event.HRcEvent.VK_SPACE:
-                    shot.setVisible(true);
-                    shot.x = player.x;
-                    shot.y = player.y - Player_shoot_height;
+                    farmer.Shoot();
                     break;
             }
         }
+    }
+    
+    public void timerCallback(){
+        shitTimer += 1;
+        eggTimer += 1;
+        
+        enemy.Move(4);
+        enemy.MoveEgg(farmer, -3);
+        if(enemy.MoveShit(-3)){
+            endGame();
+        }
+        farmer.MoveBullet(enemy.getShit());
+        
+        if(shitTimer >= 200) {
+            enemy.ThrowShit();
+            shitTimer = 0;
+        }
+        if(eggTimer >= 116){
+            enemy.ThrowEgg();
+            eggTimer = 0;
+        }
+        
+    }
+
+    public void actionPerformed(ActionEvent event) {
+        String btn = event.getActionCommand();
+        if(btn == "startKnop" || btn == "retry"){
+            scene.removeAll();
+            startGame();
+        }
+
     }
 }
