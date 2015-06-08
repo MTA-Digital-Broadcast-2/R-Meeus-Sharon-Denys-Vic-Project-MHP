@@ -277,24 +277,24 @@ public class HelloTVXlet implements Xlet, HActionListener, UserEventListener, Va
         if(enemy.MoveShit(-3)){
             endGame();
         }
-        if(score >= 100){
+        if(score >= 50){
             enemy.MoveEgg(farmer, -2);
             enemy.MoveShit(-2);
         }
-        else if(score >= 200){
+        if(score >= 100){
             enemy.MoveEgg(farmer, -3);
             enemy.MoveShit(-3);
         }
-        else if(score >= 300){
+        if(score >= 300){
             enemy.MoveEgg(farmer, -4);
             enemy.MoveShit(-4);
         }
-        else if(score >= 500){
+        if(score >= 500){
             enemy.Move(5);
             enemy.MoveEgg(farmer, -8);
             enemy.MoveShit(-8);
         }
-        else if(score >= 1000){
+        if(score >= 1000){
             enemy.Move(8);
             enemy.MoveEgg(farmer, -10);
             enemy.MoveShit(-10);
